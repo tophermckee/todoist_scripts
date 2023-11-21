@@ -52,4 +52,4 @@ if __name__ == '__main__':
                     logging.info('scoop date is in the past')
 
     except Exception as error:
-        logging.error(error, exc_info=True)
+        logging.error(error, exc_info=True) # test for webhook
