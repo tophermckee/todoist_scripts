@@ -3,11 +3,6 @@ from todoist_api_python.api import TodoistAPI
 from pathlib import Path
 import __main__
 
-auth_token = os.getenv('TODOIST_AUTH_TOKEN')
-api = TodoistAPI(auth_token)
-
-print(f"{auth_token=}")
-
 pp = pprint.PrettyPrinter(indent=2)
 
 logging.basicConfig(
@@ -19,7 +14,13 @@ logging.basicConfig(
 )
 
 if __name__ == '__main__':
+    auth_token = os.getenv('TODOIST_AUTH_TOKEN')
+    api = TodoistAPI(auth_token)
+
+    logging.info(f"{auth_token=}")
+    
     task_contents = []
+    
     try:
         all_tasks = api.get_tasks(filter="#🏠 Chores")
         
