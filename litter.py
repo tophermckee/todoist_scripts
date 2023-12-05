@@ -6,6 +6,8 @@ import __main__
 auth_token = os.getenv('TODOIST_AUTH_TOKEN')
 api = TodoistAPI(auth_token)
 
+print(f"{auth_token=}")
+
 pp = pprint.PrettyPrinter(indent=2)
 
 logging.basicConfig(
