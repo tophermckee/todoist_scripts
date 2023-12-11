@@ -21,12 +21,12 @@ logging.basicConfig(
 if sys.platform == 'darwin':
     token_path = '/Users/tophermckee/todoist_scripts/token.json'
 elif sys.platform == 'linux':
-    token_path = '/home/data_admin/todoist_scripts/token.json'
+    token_path = '/home/tophermckee/todoist_scripts/token.json'
 
 if sys.platform == 'darwin':
     service_account_path = '/Users/tophermckee/todoist_scripts/calendar-api-service-account.json'
 elif sys.platform == 'linux':
-    credentials_path = '/home/data_admin/todoist_scripts/calendar-api-service-account.json'
+    credentials_path = '/home/tophermckee/todoist_scripts/calendar-api-service-account.json'
 
 
 def google_auth_flow():
@@ -133,7 +133,7 @@ if __name__ == '__main__':
 
                         except Exception as err:
                             logging.error(f"Error getting cal events: {err}", exc_info=True)
-                            
+
                 else:
                     logging.info(f"{litter_due_date=} {scoop_due_date=}")
                     logging.info('scoop date is in the past')
