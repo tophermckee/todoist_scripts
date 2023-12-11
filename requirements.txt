@@ -1,1 +1,2 @@
 todoist-api-python
+google_auth_oauthlib
