@@ -26,7 +26,7 @@ elif sys.platform == 'linux':
 if sys.platform == 'darwin':
     service_account_path = '/Users/tophermckee/todoist_scripts/calendar-api-service-account.json'
 elif sys.platform == 'linux':
-    credentials_path = '/home/tophermckee/todoist_scripts/calendar-api-service-account.json'
+    service_account_path = '/home/tophermckee/todoist_scripts/calendar-api-service-account.json'
 
 
 def google_auth_flow():
