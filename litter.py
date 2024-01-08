@@ -58,8 +58,12 @@ def google_auth_flow():
 if __name__ == '__main__':
     auth_token = os.getenv('TODOIST_AUTH_TOKEN')
     api = TodoistAPI(auth_token)
-
-    calendar_creds = google_auth_flow()
+    
+    try:
+        calendar_creds = google_auth_flow()
+        logging.info('Successfully passed Google Auth Flow')
+    except Exception as err:
+        logging.error(f"Error in Google Auth Flow: {err}", exc_info=True)
 
     family_calendar_id = '6d757d0674c5e2f9850aa300bad6aa0bf235fedb5a636aba80474050db297fe5@group.calendar.google.com'
     
