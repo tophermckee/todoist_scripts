@@ -74,7 +74,7 @@ if __name__ == '__main__':
         page_token = None
         while True:
             service = build('calendar', 'v3', credentials=calendar_creds)
-            events = service.events().list(calendarId=family_calendar_id, pageToken=page_token, timeMin=datetime.datetime.now(timezone.utc).astimezone().isoformat()).execute()
+            events = service.events().list(calendarId=family_calendar_id, pageToken=page_token, timeMin=datetime.datetime.now(timezone.utc).astimezone().isoformat(), timeMax=(datetime.datetime.now(timezone.utc) + datetime.timedelta(days=7)).astimezone().isoformat()).execute()
             for event in events['items']:
                 calendar_contents.append(event['summary'])
             page_token = events.get('nextPageToken')
