@@ -1,10 +1,11 @@
-import os, pprint, datetime, logging, sys
+import os, pprint, datetime, logging, sys, json
 from datetime import timezone
 from todoist_api_python.api import TodoistAPI
 from pathlib import Path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.oauth2.credentials import Credentials
+from google.oauth2 import service_account
 from google.auth.transport.requests import Request
 from googleapiclient.errors import HttpError
 import __main__
@@ -25,34 +26,44 @@ elif sys.platform == 'linux':
     token_path = '/home/tophermckee/todoist_scripts/token.json'
 
 if sys.platform == 'darwin':
-    service_account_path = '/Users/tophermckee/todoist_scripts/calendar-api-service-account.json'
+    service_account_path = '/Users/tophermckee/todoist_scripts/litter-calendar.json'
 elif sys.platform == 'linux':
-    service_account_path = '/home/tophermckee/todoist_scripts/calendar-api-service-account.json'
+    service_account_path = '/home/tophermckee/todoist_scripts/litter-calendar.json'
 
 
 def google_auth_flow():
+    
     SCOPES = [
         "https://www.googleapis.com/auth/calendar"
     ]
 
-    calendar_creds = None
+    calendar_creds = service_account.Credentials.from_service_account_file(service_account_path, scopes=SCOPES)
+    
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    if os.path.exists(token_path):
-        calendar_creds = Credentials.from_authorized_user_file(token_path, SCOPES)
+    # if os.path.exists(token_path):
+    #     token = json.load(open(token_path))
+    #     expiry = datetime.datetime.fromisoformat(token["expiry"])
+    #     if expiry < datetime.datetime.now(expiry.tzinfo):
+    #         logging.info("Token expired, removing token.json and re-authenticating")
+    #         os.remove("token.json")
+    #         calendar_creds = None
+    #     else:
+    #         logging.info("Reading credentials from existing token.json")
+    #         calendar_creds = Credentials.from_authorized_user_file(token_path, SCOPES)
 
-    # If there are no (valid) credentials available, let the user log in.
-    if not calendar_creds or not calendar_creds.valid:
-        if calendar_creds and calendar_creds.expired and calendar_creds.refresh_token:
-            calendar_creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                service_account_path, SCOPES)
-            calendar_creds = flow.run_local_server(port=0)
-        # Save the credentials for the next run
-        with open(token_path, 'w') as token:
-            token.write(calendar_creds.to_json())
+    # # If there are no (valid) credentials available, let the user log in.
+    # if not calendar_creds or not calendar_creds.valid:
+    #     if calendar_creds and calendar_creds.expired and calendar_creds.refresh_token:
+    #         calendar_creds.refresh(Request())
+    #     else:
+    #         flow = InstalledAppFlow.from_client_secrets_file(
+    #             service_account_path, SCOPES)
+    #         calendar_creds = flow.run_local_server(port=0)
+    #     # Save the credentials for the next run
+    #     with open(token_path, 'w') as token:
+    #         token.write(calendar_creds.to_json())
 
     return calendar_creds
 
