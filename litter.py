@@ -103,8 +103,8 @@ if __name__ == '__main__':
                 
                 due_date = task.due.date
                 litter_due_date = datetime.date(int(due_date[0:4]), int(due_date[5:7]), int(due_date[8:10]))
-                scoop_due_date  = datetime.date(int(due_date[0:4]), int(due_date[5:7]), int(due_date[8:10]) - 3)
-                scoop_due_datetime  = datetime.datetime(int(due_date[0:4]), int(due_date[5:7]), int(due_date[8:10]) - 3, 20)
+                scoop_due_date  = datetime.date(int(due_date[0:4]), int(due_date[5:7]), int(due_date[8:10])) - datetime.timedelta(days=3)
+                scoop_due_datetime  = datetime.datetime(int(due_date[0:4]), int(due_date[5:7]), int(due_date[8:10]), 20) - datetime.timedelta(days=3)
                 
                 if scoop_due_date > datetime.date.today():
                     logging.info(f"{litter_due_date=} {scoop_due_date=}")
